@@ -28,7 +28,7 @@ This boilerplate uses `.jsx` for React components and `.js` for utilities/logic 
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/hilmifawwazsaad/NextJS-js-Boilerplate
 cd nexjs-jsx-boilerplate
 
 # Or download ZIP and extract it
