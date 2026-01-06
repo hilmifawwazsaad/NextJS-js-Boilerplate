@@ -24,13 +24,23 @@ This boilerplate uses `.jsx` for React components and `.js` for utilities/logic 
 
 ## Getting Started
 
-### 1. Install Dependencies
+### 1. Clone or Download Repository
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd nexjs-jsx-boilerplate
+
+# Or download ZIP and extract it
+```
+
+### 2. Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 2. Run Development Server
+### 3. Run Development Server
 
 ```bash
 pnpm dev
@@ -38,7 +48,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-### 3. Available Scripts
+### 4. Available Scripts
 
 ```bash
 # Development
