@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:strict": "eslint --max-warnings=0 --no-warn-ignored",
+    "lint:fix": "eslint --fix",
+    "format:write": "prettier --write",
+    "format:check": "prettier --check .",
+    "format": "pnpm run format:write \"**/*.{js,jsx,json,md,css}\" && pnpm run lint:fix . && pnpm run lint:strict \"**/*.{js,jsx}\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "16.1.1",
@@ -14,9 +20,14 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.3.0",
+    "@commitlint/config-conventional": "^20.3.0",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4"
   }
 }
