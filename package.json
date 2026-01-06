@@ -11,7 +11,7 @@
     "lint:fix": "eslint --fix",
     "format:write": "prettier --write",
     "format:check": "prettier --check .",
-    "format": "pnpm run format:write \"**/*.{js,jsx,json,md,css}\" && pnpm run lint:fix . && pnpm run lint:strict \"**/*.{js,jsx}\"",
+    "format": "pnpm run format:write \"**/*.{js,jsx,json,md,css,mjs}\" && pnpm run lint:fix . && pnpm run lint:strict \"**/*.{js,jsx}\"",
     "prepare": "husky"
   },
   "dependencies": {
