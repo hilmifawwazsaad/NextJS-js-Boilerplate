@@ -1,4 +1,4 @@
-# `src/context/`
+# `src/contexts/`
 
 Folder ini menyimpan **React Context** untuk state global yang perlu diakses oleh banyak komponen tanpa prop drilling.
 
@@ -11,7 +11,7 @@ Folder ini menyimpan **React Context** untuk state global yang perlu diakses ole
 ## Struktur yang Disarankan
 
 ```
-src/context/
+src/contexts/
 ├── AuthContext.jsx      # State autentikasi (user login, role, token)
 ├── ThemeContext.jsx     # State tema (light/dark mode)
 └── LanguageContext.jsx  # State bahasa (i18n)
@@ -19,7 +19,7 @@ src/context/
 
 ## Contoh Penggunaan
 
-**`src/context/AuthContext.jsx`**
+**`src/contexts/AuthContext.jsx`**
 
 ```jsx
 import { createContext, useContext, useState } from 'react';
@@ -50,7 +50,7 @@ export function useAuth() {
 **Daftarkan Provider di `app/layout.jsx`:**
 
 ```jsx
-import { AuthProvider } from '@/context/AuthContext';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 export default function RootLayout({ children }) {
   return (
@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
 **Penggunaan di komponen manapun:**
 
 ```jsx
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
