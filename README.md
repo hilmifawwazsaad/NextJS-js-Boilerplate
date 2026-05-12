@@ -1,6 +1,10 @@
-# Next.js JS Boilerplate
+<div align="center">
+
+<h1> Next.js JS Boilerplate </h1>
 
 A lightweight Next.js boilerplate using **JavaScript (JSX)** instead of TypeScript, optimized for rapid prototyping and quick testing.
+
+</div>
 
 ## Why JSX Instead of TypeScript?
 
@@ -63,21 +67,6 @@ pnpm lint:fix         # Auto-fix ESLint errors
 pnpm format:write     # Format with Prettier
 pnpm format:check     # Check formatting
 pnpm format           # Format + Lint + Strict check (all-in-one)
-```
-
-## Project Structure
-
-```
-├── src/
-│   ├── app/              # App Router pages
-│   │   ├── page.jsx      # Home page (/)
-│   │   ├── layout.jsx    # Root layout
-│   │   └── globals.css   # Global styles
-│   ├── components/       # Reusable components (.jsx)
-│   ├── utils/            # Utility functions (.js)
-│   └── services/         # API services (.js)
-├── public/               # Static assets
-└── .husky/               # Git hooks
 ```
 
 ## File Naming Convention
