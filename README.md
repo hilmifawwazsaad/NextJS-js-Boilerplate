@@ -1,114 +1,111 @@
 <div align="center">
-
 <h1> Next.js JS Boilerplate </h1>
-
-A lightweight Next.js boilerplate using **JavaScript (JSX)** instead of TypeScript, optimized for rapid prototyping and quick testing.
-
+Boilerplate Next.js yang ringan menggunakan <strong>JavaScript (JSX)</strong> alih-alih TypeScript, dioptimalkan untuk prototyping cepat dan pengujian kilat.
 </div>
 
-## Why JSX Instead of TypeScript?
+## Mengapa JSX daripada TypeScript?
 
-This boilerplate uses `.jsx` for React components and `.js` for utilities/logic files. The rationale:
+Boilerplate ini menggunakan `.jsx` untuk komponen React dan `.js` untuk file utilitas/logika. Alasannya:
 
-- **Faster Development**: No need to check types one by one during rapid prototyping
-- **Quick Testing**: Perfect for experimenting with new ideas without type constraints
-- **Clear Separation**: `.jsx` for components (returns JSX), `.js` for pure logic
-- **Learning Friendly**: Easier for beginners to focus on React concepts first
+- **Pengembangan Lebih Cepat**: Tidak perlu memeriksa tipe satu per satu saat prototyping cepat
+- **Pengujian Kilat**: Sempurna untuk bereksperimen dengan ide-ide baru tanpa batasan tipe
+- **Pemisahan yang Jelas**: `.jsx` untuk komponen (mengembalikan JSX), `.js` untuk logika murni
+- **Ramah untuk Pemula**: Lebih mudah bagi pemula untuk fokus pada konsep React terlebih dahulu
 
-> **Note**: For production apps with large teams, TypeScript is still recommended!
+> **Catatan**: Untuk aplikasi produksi dengan tim besar, TypeScript tetap direkomendasikan!
 
-## Tech Stack
+## Teknologi yang Digunakan
 
 - **Framework**: [Next.js 16](https://nextjs.org) (App Router)
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com)
 - **Package Manager**: [pnpm](https://pnpm.io)
-- **Code Quality**: ESLint + Prettier
+- **Kualitas Kode**: ESLint + Prettier
 - **Git Hooks**: Husky + lint-staged
-- **Commit Convention**: Commitlint (Conventional Commits)
+- **Konvensi Commit**: Commitlint (Conventional Commits)
 
-## Getting Started
+## Cara Memulai
 
-### 1. Clone or Download Repository
+### 1. Clone atau Unduh Repositori
 
 ```bash
-# Clone the repository
+# Clone repositori
 git clone https://github.com/hilmifawwazsaad/NextJS-js-Boilerplate
 cd nexjs-jsx-boilerplate
 
-# Or download ZIP and extract it
+# Atau unduh ZIP dan ekstrak
 ```
 
-### 2. Install Dependencies
+### 2. Instal Dependensi
 
 ```bash
 pnpm install
 ```
 
-### 3. Run Development Server
+### 3. Jalankan Server Development
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the result.
+Buka [http://localhost:3000](http://localhost:3000) untuk melihat hasilnya.
 
-### 4. Available Scripts
+### 4. Skrip yang Tersedia
 
 ```bash
 # Development
-pnpm dev              # Start dev server
-pnpm build            # Build for production
-pnpm start            # Start production server
+pnpm dev              # Jalankan server development
+pnpm build            # Build untuk produksi
+pnpm start            # Jalankan server produksi
 
-# Code Quality
-pnpm lint             # Run ESLint
-pnpm lint:strict      # ESLint with max 0 warnings
-pnpm lint:fix         # Auto-fix ESLint errors
-pnpm format:write     # Format with Prettier
-pnpm format:check     # Check formatting
-pnpm format           # Format + Lint + Strict check (all-in-one)
+# Kualitas Kode
+pnpm lint             # Jalankan ESLint
+pnpm lint:strict      # ESLint dengan maks 0 peringatan
+pnpm lint:fix         # Perbaiki otomatis error ESLint
+pnpm format:write     # Format dengan Prettier
+pnpm format:check     # Periksa pemformatan
+pnpm format           # Format + Lint + Strict check (semua sekaligus)
 ```
 
-## File Naming Convention
+## Konvensi Penamaan File
 
-- **`.jsx`** - React components that return JSX
-- **`.js`** - Pure JavaScript (utils, services, helpers)
-- **`.css`** - Stylesheets
+- **`.jsx`** — Komponen React yang mengembalikan JSX
+- **`.js`** — JavaScript murni (utils, services, helpers)
+- **`.css`** — Stylesheet
 
-## Code Quality Setup
+## Pengaturan Kualitas Kode
 
-### Auto-formatting on Save
+### Auto-format saat Simpan
 
-This project uses Prettier + ESLint with auto-formatting:
+Proyek ini menggunakan Prettier + ESLint dengan auto-formatting:
 
-- **On Save**: VSCode auto-formats (if configured)
-- **On Commit**: Husky + lint-staged auto-format staged files
-- **Manual**: Run `pnpm format`
+- **Saat Simpan**: VSCode memformat otomatis (jika dikonfigurasi)
+- **Saat Commit**: Husky + lint-staged memformat file yang di-stage secara otomatis
+- **Manual**: Jalankan `pnpm format`
 
-### Commit Message Convention
+### Konvensi Pesan Commit
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/):
+Proyek ini menggunakan [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```bash
-feat: add new feature
-fix: resolve bug
-docs: update documentation
-style: format code
-refactor: restructure code
-test: add tests
-chore: update dependencies
+feat: tambah fitur baru
+fix: perbaiki bug
+docs: perbarui dokumentasi
+style: format kode
+refactor: restrukturisasi kode
+test: tambah pengujian
+chore: perbarui dependensi
 ```
 
-Commitlint will **reject** commits that don't follow this format.
+Commitlint akan **menolak** commit yang tidak mengikuti format ini.
 
-## Learn More
+## Pelajari Lebih Lanjut
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [pnpm Documentation](https://pnpm.io)
+- [Dokumentasi Next.js](https://nextjs.org/docs)
+- [Dokumentasi Tailwind CSS](https://tailwindcss.com/docs)
+- [Dokumentasi pnpm](https://pnpm.io)
 
-## Deploy on Vercel
+## Deploy di Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+Cara termudah untuk mendeploy aplikasi Next.js Anda adalah menggunakan [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lihat [dokumentasi deployment Next.js](https://nextjs.org/docs/app/building-your-application/deploying) untuk detail lebih lanjut.
