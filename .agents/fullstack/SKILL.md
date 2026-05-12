@@ -1,60 +1,60 @@
 ---
 name: fullstack
-description: Build fullstack features inside a single Next.js (App Router) JSX project — where the same codebase handles both UI and server logic. Use when the task spans Server Components, Route Handlers, Server Actions, and/or database access together. Not for pure UI work (use frontend skill) or external API servers (use backend skill).
+description: Fullstack Next.js App Router JSX — UI + server logic in one repo. Use when task spans Server Components, Route Handlers, Server Actions, and/or DB. Not for pure UI (→ frontend) or external API servers (→ backend).
 license: MIT
 ---
 
-## Pre-Code Analysis
+## Before Writing
 
-Before writing, identify: server vs. client boundary, data origin (DB/API), mutation strategy (Server Action vs. Route Handler), auth requirement, and all states to handle.
+Identify: server/client boundary, data origin (DB/API), mutation strategy, auth requirement, all states.
 
 ## Server/Client Boundary
 
-| Need                                 | Use                                                   |
-| ------------------------------------ | ----------------------------------------------------- |
-| Fetch & render data                  | `async` Server Component                              |
-| Mutation tied to a page/form         | Server Action (`'use server'`) in `app/**/actions.js` |
-| REST endpoint / webhook / public API | Route Handler (`app/api/**/route.js`)                 |
-| Interactivity, hooks, browser APIs   | Client Component (`'use client'`) — push to leaves    |
-| Shared logic                         | `lib/`, `services/`, `utils/`                         |
+| Need                               | Use                                                   |
+| ---------------------------------- | ----------------------------------------------------- |
+| Fetch & render data                | `async` Server Component                              |
+| Form/page mutation                 | Server Action (`'use server'`) in `app/**/actions.js` |
+| REST / webhook / public API        | Route Handler (`app/api/**/route.js`)                 |
+| Interactivity, hooks, browser APIs | Client Component (`'use client'`) — push to leaves    |
+| Shared logic                       | `lib/`, `services/`, `utils/`                         |
 
 ## Frontend Rules
 
-- Default to Server Components; pass data as props to Client Components.
-- `'use client'` only for `useState`, `useEffect`, event listeners, browser APIs.
-- Wrap heavy async server components in `<Suspense>` with a fallback.
-- All files with JSX use `.jsx`; hooks and utilities use `.js`.
-- All four states required: loading (`loading.jsx`/Suspense), error (`error.jsx`), empty, not-found (`not-found.jsx`).
-- `next/image` for images, `next/font` for fonts. Existing design tokens only.
+- Server Components default; pass data as props to Client Components.
+- `'use client'` only for `useState`, `useEffect`, events, browser APIs.
+- Wrap heavy async RSC in `<Suspense>` with fallback.
+- `.jsx` for JSX files, `.js` for hooks/utils.
+- Four states required: loading (`loading.jsx`/Suspense), error (`error.jsx`), empty, not-found (`not-found.jsx`).
+- `next/image` for images, `next/font` for fonts. Existing tokens only.
 
 ## Backend Rules
 
-**Route Handlers** — consistent JSON envelope:
+**Envelope** — Route Handlers return:
 
 - Success: `{ success: true, data: <payload>, message: "OK", error: null }`
-- Error: `{ success: false, data: null, message: "<summary>", error: { code: "<CODE>", details: [{field, message}] } }`
-- HTTP codes: 200/201/204 success · 422 validation · 401 unauth · 403 forbidden · 409 conflict · 500 server error (no stack trace)
+- Error: `{ success: false, data: null, message: "<summary>", error: { code, details: [{field, message}] } }`
+- Codes: 200/201/204 · 422 validation · 401 unauth · 403 forbidden · 409 conflict · 500 (no stack trace)
 
-**Server Actions** — return plain serializable objects (`{ success, data?, error?, errors? }`). Call `revalidatePath`/`revalidateTag` after mutations.
+**Server Actions** — return `{ success, data?, error?, errors? }`. Call `revalidatePath`/`revalidateTag` after mutations.
 
-**Data layer** — DB access in `lib/db.js` or `services/*.js`. Connection pooling always. Parameterized queries or ORM — no string concatenation.
+**Data layer** — DB in `lib/db.js` or `services/*.js`. Connection pooling. Parameterized queries/ORM only.
 
-**Validation** — validate all input on server before any processing. Return 422 with `error.details` array for Route Handlers; return `{ success: false, errors }` for Server Actions.
+**Validation** — validate server-side before processing. Route Handlers: 422 + `error.details`; Server Actions: `{ success: false, errors }`.
 
-## Security (non-negotiable)
+## Security
 
-- Secrets server-only — never `NEXT_PUBLIC_` for sensitive values.
-- Always verify session/auth in Server Actions and Route Handlers before processing.
-- Route protection via `middleware.js` using `cookies()` or token check.
-- Parameterized queries only. Hash passwords (bcrypt/argon2).
+- Secrets server-only. Never `NEXT_PUBLIC_` for sensitive values.
+- Verify session/auth in every Server Action and Route Handler.
+- Route protection via `middleware.js`.
+- Parameterized queries. Hash passwords (bcrypt/argon2).
 - Rate limit sensitive endpoints.
 
 ## Never Do
 
-- Run DB queries or use secrets in Client Components or `NEXT_PUBLIC_` vars.
-- Trust unvalidated input from Server Actions or Route Handlers.
-- Use `useEffect` for data fetching when a Server Component works.
-- Pass sensitive data as props to Client Components (exposed in JS bundle).
-- Skip any of the four states (loading/error/empty/not-found).
-- Invent design tokens or break folder conventions.
-- Put business logic directly in route handlers or page components.
+- DB queries or secrets in Client Components / `NEXT_PUBLIC_`.
+- Trust unvalidated input.
+- `useEffect` for data when RSC works.
+- Pass sensitive data as props to Client Components (exposed in bundle).
+- Skip any of the four states.
+- Invent tokens or break conventions.
+- Business logic in route handlers or page components.
