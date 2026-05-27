@@ -1,63 +1,57 @@
 ---
 name: backend
-description: External backend API (any language: Go, Rust, Python, PHP, JS, etc.) serving a Next.js JSX frontend.
+description: Design and generate external backend API code (any language/framework — Go, Rust, Python, PHP, JavaScript, Ruby, etc.) that serves a Next.js JSX frontend. Use for API endpoints, auth, validation, and data modeling on a separate backend server.
 license: MIT
 ---
 
-## Before Writing
+> Read `.agents/software-principles/SKILL.md` first.
 
-Identify: resource/action, request→response contract, auth requirement, failure scenarios, validation needs.
+## Pre-Code Checklist
+
+1. Resource + HTTP method + action
+2. Request → response contract (input shape, output shape, errors)
+3. Auth requirement (public / authenticated / role-gated)
+4. Failure scenarios + validation rules
 
 ## Response Envelope
 
-- Success: `{ success: true, data: <payload>, message: "OK", error: null }`
-- Error: `{ success: false, data: null, message: "<summary>", error: { code: "<CODE>", details: [{field, message}] } }`
+Follow existing convention if one exists. If starting fresh, pick one shape and apply consistently. Never mix shapes across endpoints.
 
-## HTTP Codes
+Required regardless of shape:
 
-| Situation          | Code                      |
-| ------------------ | ------------------------- |
-| GET/PUT/PATCH      | 200                       |
-| POST created       | 201                       |
-| DELETE             | 204                       |
-| Validation failure | 422 + field-level details |
-| Invalid auth       | 401                       |
-| Forbidden          | 403                       |
-| Conflict           | 409                       |
-| Rate limited       | 429                       |
-| Server error       | 500 (no stack trace)      |
+- Success and error responses must be distinguishable
+- Validation errors must include field-level detail, not just a generic message
+- Error responses must never expose stack traces, query strings, or internal paths
+- Never return untyped raw objects
 
 ## Design Rules
 
-- **Endpoints** — plural nouns, kebab-case: `/posts`, `/post-categories`. Query: `page`, `limit`, `sort`, `filter[key]=value`.
-- **Auth** — JWT/opaque token via `Authorization: Bearer <token>`, or HTTP-only cookie if same domain.
-- **Pagination** — lists return `{ items, pagination: { page, limit, totalItems, totalPages } }` in `data`.
-- **CORS** — exact origin only. Never `*` with credentials.
-- **Validation** — validate all input at boundary; 422 + `error.details` array.
-- **Naming** — camelCase or snake_case; consistent throughout.
-- **Docs** — OpenAPI at `/api/docs` or `/openapi.json` when feasible.
-
-## Security
-
-- Secrets in env vars only, never hardcoded.
-- Parameterized queries/ORM. No string concatenation for DB.
-- Hash passwords (bcrypt/argon2).
-- Rate limit auth endpoints (login, register, password reset).
-- Limit request body size (1MB).
-- Security headers (X-Frame-Options, CSP) in production.
-- HTTPS in production.
+- **Versioning** — prefix all routes `/api/v1/`
+- **Endpoints** — plural nouns, kebab-case: `/api/v1/posts`, `/api/v1/post-categories`
+- **Query params** — `page`, `limit`, `sort`, `filter[key]=value`
+- **Auth** — `Authorization: Bearer <token>` (JWT/opaque) or HTTP-only cookie (same parent domain)
+- **Pagination** — all list endpoints: `data: { items: T[], pagination: { page, limit, totalItems, totalPages } }`
+- **CORS** — exact origin only. Never wildcard with credentials
+- **Naming** — camelCase or snake_case — consistent throughout project
+- **Docs** — expose OpenAPI spec at `/api/docs` or `/openapi.json` when feasible
 
 ## Architecture
 
-- Thin route handlers — business logic in service/use-case layer.
-- Global error handler → safe 500 for unexpected errors.
-- DB connection pooling. Async I/O.
-- Cache read-heavy data where appropriate.
+- Route handlers thin — business logic in service/use-case layer
+- Global error handler → catches all unhandled errors → safe fallback response
+- DB connection pooling. Async/non-blocking I/O
+
+## Security (non-negotiable)
+
+- Secrets via env vars only — never hardcoded
+- Parameterized queries/ORM — no string-concatenated SQL
+- Hash passwords (bcrypt/argon2 or language equivalent)
+- Rate-limit auth endpoints (login, register, password reset)
+- Limit request body size
+- Security headers in production (X-Frame-Options, CSP, HSTS)
+- Validate all input at boundary before processing
 
 ## Never Do
 
-- Expose stack traces, DB errors, internals to client.
-- Trust unvalidated input or hardcode secrets.
-- Skip pagination on list endpoints.
-- `*` CORS with credentials.
-- Business logic in route handlers.
+- Trust unvalidated client input or hardcode secrets
+- Business logic directly in route handlers
