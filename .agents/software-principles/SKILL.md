@@ -13,19 +13,19 @@ license: MIT
 
 ## Principles
 
-| Principle                     | Rule                              | Violation Signal                                   | Fix                                         |
-| ----------------------------- | --------------------------------- | -------------------------------------------------- | ------------------------------------------- |
-| **SRP**                       | One unit, one reason to change    | `"and"` in name · file > 200 lines · fn > 20 lines | Split into focused units                    |
-| **OCP**                       | Extend without modifying existing | Adding variant by editing component internals      | Variant props · composition · new component |
-| **DIP**                       | Depend on abstractions            | `new ConcreteService()` hardcoded inside logic     | Inject dependencies                         |
-| **Composition > Inheritance** | Compose via hooks/props           | Class chains                                       | Props + custom hooks                        |
-| **DRY**                       | One source of truth per logic     | Copy-paste logic across files                      | Extract to shared fn/module                 |
-| **KISS**                      | Simplest correct solution         | Unnecessary abstraction · deep indirection         | Remove layers · flatten                     |
-| **YAGNI**                     | Build only what's needed now      | Unused params · "might need later" code            | Delete it                                   |
-| **SoC**                       | Each module owns one concern      | UI + fetch + logic in one file                     | Separate layers (page · hook · util)        |
-| **LoD**                       | Talk only to direct collaborators | `a.b.c.method()` chains                            | Add intermediate method                     |
-| **Fail Fast**                 | Surface errors at earliest point  | Silent catch · late validation                     | Validate at boundaries · throw early        |
-| **SSOT**                      | One authoritative place per logic | Same validation in multiple layers                 | Centralize · import everywhere              |
+| Principle                            | Rule                              | Violation Signal                                   | Fix                                         |
+| ------------------------------------ | --------------------------------- | -------------------------------------------------- | ------------------------------------------- |
+| **SRP** — Single Responsibility      | One unit, one reason to change    | `"and"` in name · file > 200 lines · fn > 20 lines | Split into focused units                    |
+| **OCP** — Open/Closed Principle      | Extend without modifying existing | Adding variant by editing component internals      | Variant props · composition · new component |
+| **DIP** — Dependency Inversion       | Depend on abstractions            | `new ConcreteService()` hardcoded inside logic     | Inject dependencies                         |
+| **Composition > Inheritance**        | Compose via hooks/props           | Class chains                                       | Props + custom hooks                        |
+| **DRY** — Don't Repeat Yourself      | One source of truth per logic     | Copy-paste logic across files                      | Extract to shared fn/module                 |
+| **KISS** — Keep It Simple, Stupid    | Simplest correct solution         | Unnecessary abstraction · deep indirection         | Remove layers · flatten                     |
+| **YAGNI** — You Aren't Gonna Need It | Build only what's needed now      | Unused params · "might need later" code            | Delete it                                   |
+| **SoC** — Separation of Concerns     | Each module owns one concern      | UI + fetch + logic in one file                     | Separate layers (page · hook · util)        |
+| **LoD** — Law of Demeter             | Talk only to direct collaborators | `a.b.c.method()` chains                            | Add intermediate method                     |
+| **Fail Fast**                        | Surface errors at earliest point  | Silent catch · late validation                     | Validate at boundaries · throw early        |
+| **SSOT** — Single Source of Truth    | One authoritative place per logic | Same validation in multiple layers                 | Centralize · import everywhere              |
 
 ## Naming
 
